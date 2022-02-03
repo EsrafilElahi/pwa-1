@@ -1,4 +1,6 @@
-import { Camera, CameraResultType } from '@capacitor/camera';
+// import { Camera, CameraResultType } from '@capacitor/camera';
+const Camera = require("@capacitor/camera");
+const CameraResultType = require("@capacitor/camera");
 
 const btn = document.getElementById("btn")
 
@@ -19,7 +21,7 @@ const takePicture = async () => {
   var imageUrl = image.webPath;
   
   console.log('take pic :', image);
-  
+
   // Can be set to the src of an image now
   imageElement.src = imageUrl;
 };
