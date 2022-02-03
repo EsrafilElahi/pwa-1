@@ -1,8 +1,8 @@
 window.onload = () => {
-  if ("serviceworker" in navigator) {
+  'use strict';
+
+  if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-      .register("./service-worker.js")
-      .then((res) => console.log("service worker registered", res))
-      .catch((err) => console.log("service worker not registered", err));
+             .register('./service-worker.js');
   }
-};
+}
