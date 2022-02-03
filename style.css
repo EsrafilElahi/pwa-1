@@ -1,5 +1,14 @@
 body{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+button{
+  padding: 1em 2em;
+  background: #00dfab;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
 }
