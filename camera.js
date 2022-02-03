@@ -4,7 +4,9 @@ const CameraResultType = require("@capacitor/camera");
 
 const btn = document.getElementById("btn")
 
-btn.onclick = takePicture();
+// btn.onclick = takePicture();
+
+btn.addEventListener("click", takePicture)
 
 const takePicture = async () => {
   const image = await Camera.getPhoto({
