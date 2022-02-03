@@ -1,29 +1,22 @@
-// import { Camera, CameraResultType } from '@capacitor/camera';
-const Camera = require("./node_modules/@capacitor/camera");
-const CameraResultType = require("./node_modules/@capacitor/camera");
-
-const btn = document.getElementById("btn")
-
-// btn.onclick = takePicture();
-
-btn.addEventListener("click", takePicture)
-
-const takePicture = async () => {
-  const image = await Camera.getPhoto({
-    quality: 90,
-    allowEditing: true,
-    resultType: CameraResultType.Uri
+document
+  .querySelector("#get-access")
+  .addEventListener("click", async function init(e) {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: true,
+      });
+      const videoTracks = stream.getVideoTracks();
+      const track = videoTracks[0];
+      alert(`Getting video from: ${track.label}`);
+      document.querySelector("video").srcObject = stream;
+      document.querySelector("#get-access").setAttribute("hidden", true);
+      //The video stream is stopped by track.stop() after 3 second of playback.
+      setTimeout(() => {
+        track.stop();
+      }, 3 * 1000);
+    } catch (error) {
+      alert(`errori hast : ${error.name}`);
+      console.error(error);
+    }
   });
-
-  
-  // image.webPath will contain a path that can be set as an image src.
-  // You can access the original file using image.path, which can be
-  // passed to the Filesystem API to read the raw data of the image,
-  // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-  var imageUrl = image.webPath;
-  
-  console.log('take pic :', image);
-
-  // Can be set to the src of an image now
-  imageElement.src = imageUrl;
-};
