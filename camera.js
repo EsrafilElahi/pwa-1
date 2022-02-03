@@ -20,4 +20,3 @@ document
     }
   });
 
-document.querySelector("#get-access").setAttribute("hidden", false);
