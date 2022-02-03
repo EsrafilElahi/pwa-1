@@ -1,6 +1,6 @@
 // import { Camera, CameraResultType } from '@capacitor/camera';
-const Camera = require("@capacitor/camera");
-const CameraResultType = require("@capacitor/camera");
+const Camera = require("./node_modules/@capacitor/camera");
+const CameraResultType = require("./node_modules/@capacitor/camera");
 
 const btn = document.getElementById("btn")
 
