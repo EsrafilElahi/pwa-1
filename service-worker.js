@@ -1,5 +1,5 @@
 let cacheName = "pwa-1";
-let cacheFiles = ["/", "/index.html", "/style.css", "/script.js"];
+let cacheFiles = ["/", "/index.html", "/style.css", "/script.js", "/manifest.json"];
 
 // start service worker to install
 self.addEventListener("install", function (e) {
