@@ -17,6 +17,7 @@ self.addEventListener("install", async function (e) {
 // activate
 self.addEventListener("activate", function (e) {
   self.clients.claim();
+  console.log("service work activated!!");
 });
 
 // fetch

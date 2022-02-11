@@ -8,3 +8,18 @@ window.onload = () => {
       .catch((err) => console.log("service worker not registered", err));
   }
 };
+
+let defferPrompt;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  defferPrompt = e;
+})
+
+document.getElementById("add").addEventListener("click", (e) => {
+  e.preventDefault();
+
+  if(defferPrompt) {
+    console.log('user choice', defferPrompt.userChoice)
+  }
+})

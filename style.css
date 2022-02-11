@@ -12,3 +12,11 @@ button{
   border-radius: 0.5em;
   cursor: pointer;
 }
+
+#stop{
+  margin-top: 1em;
+}
+
+#add{
+  margin-top: 1em;
+}
