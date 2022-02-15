@@ -94,7 +94,7 @@ self.addEventListener("fetch", (event) => {
 
         return fetch(event.request)
           .then((networkResponse) => {
-            caches.open(CURRENT_CACHE["dynamic"]).then((cache) => {
+            return caches.open(CURRENT_CACHE["dynamic"]).then((cache) => {
               cache.put(event.request, networkResponse.clone());
               return networkResponse;
             });
