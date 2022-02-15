@@ -9,6 +9,8 @@ window.onload = () => {
   }
 };
 
+
+// for install banner
 let defferPrompt;
 
 window.addEventListener("beforeinstallprompt", (e) => {
