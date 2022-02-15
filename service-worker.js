@@ -46,7 +46,15 @@ self.addEventListener("fetch", function (e) {
   e.respondWith(
     caches.open(CURRENT_CACHE["front"]).then((cache) => {
       return cache.match(e.request).then((response) => {
-        return response || fetch(e.request);
+        if (response) {
+          return response;
+        } else {
+          fetch(e.response).then((netResponse) => {
+            console.log("netResponse :", netResponse);
+            cache.put(e.request, netResponse.clone());
+            return netResponse;
+          });
+        }
       });
     })
     // .catch(e => {
