@@ -9,7 +9,7 @@ window.onload = () => {
   }
 
   if (!("serviceWorker" in navigator && "PushManager" in window)) {
-    console.log("SW & PM doesn't support");
+    console.log("serviceWorker & PushManager doesn't support");
   } else {
     if (navigator.permissions) {
       navigator.permissions
