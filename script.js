@@ -41,21 +41,22 @@ window.addEventListener("appinstalled", (e) => {
   defferPrompt = null;
 });
 
-document.addEventListener("DOMContentLoaded", async (e) => {
-  const getNotifState = async () => {
-    if (navigator.permissions) {
-      let result = await navigator.permissions.query({
-        name: "notifications",
-      });
-      return result.state;
-    }
-  };
+// document.addEventListener("DOMContentLoaded", async (e) => {
 
-  const state = await getNotifState();
+//   const getNotifState = async () => {
+//     if (navigator.permissions) {
+//       let result = await navigator.permissions.query({
+//         name: "notifications",
+//       });
+//       return result.state;
+//     }
+//   };
 
-  if (!("serviceWorker" in navigator && "PushManager" in window)) {
-    console.log("serviceWorker & PushManager doesn't support");
-  } else {
-    console.log(state);
-  }
-});
+//   const state = await getNotifState();
+
+//   if (!("serviceWorker" in navigator && "PushManager" in window)) {
+//     console.log("serviceWorker & PushManager doesn't support");
+//   } else {
+//     console.log(state);
+//   }
+// });

@@ -26,10 +26,55 @@
     <button id="get-access">Get access to camera</button>
     <button id="stop">stop</button>
     <button id="add">add</button>
+    <button id="btn">notif</button>
     <video autoplay></video>
 
     <script src="./script.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="./camera.js"></script>
+
+    <script>
+      var btn = document.getElementById("btn");
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        const getNotificationPermissionState = async () => {
+          if (navigator.permissions) {
+            let result = await navigator.permissions.query({
+              name: "notifications",
+            });
+            return result.state;
+          }
+        };
+
+        let currentPermissionState = await getNotificationPermissionState();
+
+        if (currentPermissionState === "denied") {
+          console.warn("the notification permission has been blocked");
+        }
+
+        btn.addEventListener("click", async (event) => {
+          event.preventDefault();
+
+          if (!("serviceWorker" in navigator) && !("PushManager" in window)) {
+            console.log("Service worker and Push aren't support");
+            return;
+          }
+
+          if (currentPermissionState !== "granted") {
+            let result = await Notification.requestPermission();
+            if (result !== "granted") {
+              console.log("no notification permission granted !");
+              return;
+            } else {
+              new Notification("با تشکر", {});
+              // navigator.serviceWorker.ready
+              //   .then(registration => {
+              //     registration.showNotification('با تشکر' , {})
+              //   })
+            }
+          }
+        });
+      });
+    </script>
   </body>
 </html>
