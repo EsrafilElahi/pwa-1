@@ -7,16 +7,6 @@ window.onload = () => {
       .then((res) => console.log("service worker registered", res))
       .catch((err) => console.log("service worker not registered", err));
   }
-
-  if (!("serviceWorker" in navigator && "PushManager" in window)) {
-    console.log("serviceWorker & PushManager doesn't support");
-  } else {
-    if (navigator.permissions) {
-      navigator.permissions
-        .query({ name: "notifications" })
-        .then((res) => console.log(res.state));
-    }
-  }
 };
 
 // for install banner
@@ -49,4 +39,23 @@ btn.addEventListener("click", (e) => {
 window.addEventListener("appinstalled", (e) => {
   console.log("app installed");
   defferPrompt = null;
+});
+
+document.addEventListener("DOMContentLoaded", async (e) => {
+  const getNotifState = async () => {
+    if (navigator.permissions) {
+      let result = await navigator.permissions.query({
+        name: "notifications",
+      });
+      return result.state;
+    }
+  };
+
+  const state = await getNotifState();
+
+  if (!("serviceWorker" in navigator && "PushManager" in window)) {
+    console.log("serviceWorker & PushManager doesn't support");
+  } else {
+    console.log(state);
+  }
 });
