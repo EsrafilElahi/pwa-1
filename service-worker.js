@@ -3,14 +3,15 @@ let cacheFiles = ["/", "/style.css", "/script.js", "/manifest.json"];
 
 let CACHE_VERSION = 1.1;
 let CURRENT_CACHE = {
-  front: `pwa-cache-v${CACHE_VERSION}`,
+  static: `static-cache-v${CACHE_VERSION}`,
+  dynamic: `dynamic-cache-v${CACHE_VERSION}`,
 };
 
 // start service worker to install
-self.addEventListener("install", function (e) {
+self.addEventListener("install", (e) => {
   e.waitUntil(
     caches
-      .open(CURRENT_CACHE["front"])
+      .open(CURRENT_CACHE["static"])
       .then((cache) => {
         console.log("caching assets...");
         cache.addAll(cacheFiles);
@@ -21,7 +22,7 @@ self.addEventListener("install", function (e) {
 });
 
 // activate cache
-self.addEventListener("activate", function (e) {
+self.addEventListener("activate", (e) => {
   console.log("activating service worker", e);
 
   // array 0f expected cache name (Object.value())
@@ -41,26 +42,38 @@ self.addEventListener("activate", function (e) {
   );
 });
 
-// serve cached content to work offline
-self.addEventListener("fetch", function (e) {
+// // serve cached content to work offline --> staticly
+// self.addEventListener("fetch", (e) => {
+//   e.respondWith(
+//     caches.open(CURRENT_CACHE["static"]).then((cache) => {
+//       return cache.match(e.request).then((response) => {
+//         if (response) {
+//           return response;
+//         } else {
+//           fetch(e.response).then((netResponse) => {
+//             console.log("netResponse :", netResponse);
+//             cache.put(e.request, netResponse.clone());
+//             return netResponse;
+//           });
+//         }
+//       });
+//     })
+//   );
+// });
+
+// serve cached content to work offline --> dynamicly
+self.addEventListener("fetch", (e) => {
   e.respondWith(
-    caches.open(CURRENT_CACHE["front"]).then((cache) => {
-      return cache.match(e.request).then((response) => {
-        if (response) {
-          return response;
-        } else {
-          fetch(e.response).then((netResponse) => {
-            console.log("netResponse :", netResponse);
-            cache.put(e.request, netResponse.clone());
-            return netResponse;
-          });
-        }
+    caches.match(e.request).then((response) => {
+      if (response) {
+        return response;
+      }
+      return fetch(e.request).then((netResponse) => {
+        caches.open(CURRENT_CACHE["dynamic"]).then((cache) => {
+          cache.put(e.request, netResponse.clone());
+          return netResponse;
+        });
       });
     })
-    // .catch(e => {
-    //   if (e.request.url.indexOf(".html") > -1) {    ===> for fallback html page
-    //     return caches.match("/falback.html")
-    //   }
-    // })
   );
 });
