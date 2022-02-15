@@ -8,7 +8,7 @@ window.onload = () => {
       .catch((err) => console.log("service worker not registered", err));
   }
 
-  if (!("serviceWorker" in navigator && "pushManager" in window)) {
+  if (!("serviceWorker" in navigator && "PushManager" in window)) {
     console.log("SW & PM doesn't support");
   } else {
     if (navigator.permissions) {
