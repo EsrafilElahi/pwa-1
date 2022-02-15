@@ -1,5 +1,11 @@
 let cacheName = "pwa-1";
-let cacheFiles = ["/", "/style.css", "/script.js", "/manifest.json"];
+let cacheFiles = [
+  "/",
+  "/style.css",
+  "/offline.html",
+  "/script.js",
+  "/manifest.json",
+];
 
 let CACHE_VERSION = 1.1;
 let CURRENT_CACHE = {
@@ -86,12 +92,18 @@ self.addEventListener("fetch", (event) => {
       caches.match(event.request).then((response) => {
         if (response) return response;
 
-        return fetch(event.request).then((networkResponse) => {
-          caches.open(CURRENT_CACHE["dynamic"]).then((cache) => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
+        return fetch(event.request)
+          .then((networkResponse) => {
+            caches.open(CURRENT_CACHE["dynamic"]).then((cache) => {
+              cache.put(event.request, networkResponse.clone());
+              return networkResponse;
+            });
+          })
+          .catch((err) => {
+            return caches.open(CURRENT_CACHE["static"]).then((res) => {
+              return res.match("/offline.html");
+            });
           });
-        });
       })
     );
   }
