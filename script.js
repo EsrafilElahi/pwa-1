@@ -7,8 +7,17 @@ window.onload = () => {
       .then((res) => console.log("service worker registered", res))
       .catch((err) => console.log("service worker not registered", err));
   }
-};
 
+  if (!("serviceWorker" in navigator && "pushManager" in window)) {
+    console.log("SW & PM doesn't support");
+  } else {
+    if (navigator.permissions) {
+      navigator.permissions
+        .query({ name: "notifications" })
+        .then((res) => console.log(res.state));
+    }
+  }
+};
 
 // for install banner
 let defferPrompt;
