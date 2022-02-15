@@ -62,18 +62,37 @@ self.addEventListener("activate", (e) => {
 // });
 
 // serve cached content to work offline --> dynamicly
-self.addEventListener("fetch", (e) => {
-  e.respondWith(
-    caches.match(e.request).then((response) => {
-      if (response) {
-        return response;
-      }
-      return fetch(e.request).then((netResponse) => {
-        caches.open(CURRENT_CACHE["dynamic"]).then((cache) => {
-          cache.put(e.request, netResponse.clone());
-          return netResponse;
+self.addEventListener("fetch", (event) => {
+  let urls = ["http://roocket.org/api/products"];
+
+  if (urls.indexOf(event.request.url) > -1) {
+    console.log("network first");
+    return event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          return caches.open(CURRENT_CACHE["dynamic"]).then((cache) => {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        })
+        .catch((err) => {
+          return caches.match(event.request);
+        })
+    );
+  } else {
+    console.log("cache first");
+
+    return event.respondWith(
+      caches.match(event.request).then((response) => {
+        if (response) return response;
+
+        return fetch(event.request).then((networkResponse) => {
+          caches.open(CURRENT_CACHE["dynamic"]).then((cache) => {
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
         });
-      });
-    })
-  );
+      })
+    );
+  }
 });
