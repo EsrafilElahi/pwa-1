@@ -6,7 +6,6 @@ async function notif() {
       icon: "images/hello-icon-128.png",
       badge: "images/hello-icon-128.png",
       image: "images/hello-icon-256.png",
-      renotify: true,
     });
 
     // close the notification after 10 seconds
