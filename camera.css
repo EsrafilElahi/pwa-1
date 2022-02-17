@@ -1,0 +1,64 @@
+button {
+  margin-top: 1.5em;
+  padding: 1em 2em;
+  background: #00dfab;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#take-photo {
+  display: none;
+}
+
+#take-picture {
+  display: none;
+}
+
+#record-video {
+  display: none;
+}
+
+.sections {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 7em;
+  width: 100%;
+}
+
+.section {
+  border: 1px solid #00d2ff;
+  border-radius: 0.25em;
+  padding: 0.7em 3em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.section:hover {
+  color: white;
+  background-color: #00d2ff;
+}
+
+#start-record {
+  display: none;
+}
+
+#stop-record {
+  margin-top: 2em;
+  display: none;
+}
+
+#download-video {
+  margin: 0 auto;
+  margin-top: 3em;
+  display: none;
+}
