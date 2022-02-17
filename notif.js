@@ -6,20 +6,6 @@ async function notif() {
       icon: "images/hello-icon-128.png",
       badge: "images/hello-icon-128.png",
       image: "images/hello-icon-256.png",
-      actions: [
-        {
-          title: "دانلود کتاب",
-          action: "download",
-        },
-        {
-          title: "نمایش کتاب",
-          action: "show",
-        },
-      ],
-      data: {
-        url: "/camera.html",
-        message: "camera url from data property",
-      },
     });
 
     // close the notification after 10 seconds
