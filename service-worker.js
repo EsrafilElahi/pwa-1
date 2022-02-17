@@ -51,23 +51,23 @@ self.addEventListener("activate", (e) => {
 });
 
 // serve cached content to work offline --> staticly
-// self.addEventListener("fetch", (e) => {
-//   e.respondWith(
-//     caches.open(CURRENT_CACHE["static"]).then((cache) => {
-//       return cache.match(e.request).then((response) => {
-//         if (response) {
-//           return response;
-//         } else {
-//           fetch(e.response).then((netResponse) => {
-//             console.log("netResponse :", netResponse);
-//             cache.put(e.request, netResponse.clone());
-//             return netResponse;
-//           });
-//         }
-//       });
-//     })
-//   );
-// });
+self.addEventListener("fetch", (e) => {
+  e.respondWith(
+    caches.open(CURRENT_CACHE["static"]).then((cache) => {
+      return cache.match(e.request).then((response) => {
+        if (response) {
+          return response;
+        } else {
+          fetch(e.response).then((netResponse) => {
+            console.log("netResponse :", netResponse);
+            cache.put(e.request, netResponse.clone());
+            return netResponse;
+          });
+        }
+      });
+    })
+  );
+});
 
 // serve cached content to work offline --> dynamicly
 // self.addEventListener("fetch", (event) => {
