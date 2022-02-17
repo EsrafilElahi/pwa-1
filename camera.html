@@ -20,7 +20,7 @@
         align-items: center;
         justify-content: center;
       }
-      video {
+      /* video {
         border: 1px solid;
         margin-top: 3em;
         width: 450px;
@@ -33,6 +33,12 @@
         width: 450px;
         height: 350px;
         border-radius: 0.3em;
+      } */
+      .dive {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
     </style>
   </head>
@@ -46,7 +52,7 @@
       <canvas id="canvas" width="100%" height="100%"></canvas>
     </div> -->
 
-    <div>
+    <div class="dive">
       <button id="start-camera">Start Camera</button>
       <video id="video" width="320" height="240" autoplay></video>
       <button id="click-photo">Click Photo</button>
