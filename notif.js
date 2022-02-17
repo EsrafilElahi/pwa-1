@@ -1,4 +1,4 @@
-(async () => {
+async function showNotif() {
   // create and show the notification
   const showNotification = () => {
     const notification = new Notification("عکس گرفتن", {
@@ -13,8 +13,8 @@
     }, 10 * 1000);
 
     // navigate to a URL when clicked
-    notification.addEventListener("click", async () => {
-      await window.open("./camera.js", "_blank");
+    notification.addEventListener("click", () => {
+      window.open("./camera.js", "_blank");
     });
   };
 
@@ -49,5 +49,4 @@
 
   // show notification or error
   granted ? showNotification() : showError();
-})();
-
+}
