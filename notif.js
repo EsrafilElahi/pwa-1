@@ -38,7 +38,7 @@ async function showNotif() {
   };
 
   // check notification permission
-  let granted = false;
+  let granted = null;
 
   if (Notification.permission === "granted") {
     granted = true;
