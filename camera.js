@@ -156,7 +156,7 @@ start_button.addEventListener("click", function () {
   });
 
   // start recording with each recorded blob having 1 second video
-  media_recorder.start(1000);
+  media_recorder.start(500);
 });
 
 stop_button.addEventListener("click", function () {
