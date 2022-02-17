@@ -112,7 +112,9 @@ start_camera_photo.addEventListener("click", async function () {
 });
 
 take_Photo.addEventListener("click", function () {
-  canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+  canvas
+    .getContext("2d")
+    .drawImage(video_photo, 0, 0, canvas.width, canvas.height);
   let image_data_url = canvas.toDataURL("image/jpeg");
 
   // data url of the image

@@ -11,6 +11,7 @@ button{
   border: none;
   border-radius: 0.5em;
   cursor: pointer;
+  margin-top: 2em;
 }
 
 #stop{
