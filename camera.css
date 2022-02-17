@@ -51,6 +51,12 @@ button {
 #download-img {
   display: none;
   margin: 0 auto;
+  display: flex;
+  border: 1px solid #00fff1;
+  border-radius: 0.3em;
+  padding: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 #start-record {

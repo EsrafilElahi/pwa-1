@@ -121,7 +121,7 @@ take_Photo.addEventListener("click", function () {
 
   // data url of the image
   console.log(image_data_url);
-  download_img.style.src = image_data_url;
+  download_img.href = image_data_url;
 });
 
 // video functions
