@@ -48,63 +48,63 @@ self.addEventListener("activate", (e) => {
   );
 });
 
-// // serve cached content to work offline --> staticly
-// self.addEventListener("fetch", (e) => {
-//   e.respondWith(
-//     caches.open(CURRENT_CACHE["static"]).then((cache) => {
-//       return cache.match(e.request).then((response) => {
-//         if (response) {
-//           return response;
-//         } else {
-//           fetch(e.response).then((netResponse) => {
-//             console.log("netResponse :", netResponse);
-//             cache.put(e.request, netResponse.clone());
-//             return netResponse;
-//           });
-//         }
-//       });
-//     })
-//   );
-// });
+// serve cached content to work offline --> staticly
+self.addEventListener("fetch", (e) => {
+  e.respondWith(
+    caches.open(CURRENT_CACHE["static"]).then((cache) => {
+      return cache.match(e.request).then((response) => {
+        if (response) {
+          return response;
+        } else {
+          fetch(e.response).then((netResponse) => {
+            console.log("netResponse :", netResponse);
+            cache.put(e.request, netResponse.clone());
+            return netResponse;
+          });
+        }
+      });
+    })
+  );
+});
 
 // serve cached content to work offline --> dynamicly
-self.addEventListener("fetch", (event) => {
-  let urls = ["http://roocket.org/api/products"];
+// self.addEventListener("fetch", (event) => {
+//   let urls = ["http://roocket.org/api/products"];
 
-  if (urls.indexOf(event.request.url) > -1) {
-    console.log("network first");
-    return event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          return caches.open(CURRENT_CACHE["dynamic"]).then((cache) => {
-            cache.put(event.request, response.clone());
-            return response;
-          });
-        })
-        .catch((err) => {
-          return caches.match(event.request);
-        })
-    );
-  } else {
-    console.log("cache first");
+//   if (urls.indexOf(event.request.url) > -1) {
+//     console.log("network first");
+//     return event.respondWith(
+//       fetch(event.request)
+//         .then((response) => {
+//           return caches.open(CURRENT_CACHE["dynamic"]).then((cache) => {
+//             cache.put(event.request, response.clone());
+//             return response;
+//           });
+//         })
+//         .catch((err) => {
+//           return caches.match(event.request);
+//         })
+//     );
+//   } else {
+//     console.log("cache first");
 
-    return event.respondWith(
-      caches.match(event.request).then((response) => {
-        if (response) return response;
+//     return event.respondWith(
+//       caches.match(event.request).then((response) => {
+//         if (response) return response;
 
-        return fetch(event.request)
-          .then((networkResponse) => {
-            return caches.open(CURRENT_CACHE["dynamic"]).then((cache) => {
-              cache.put(event.request, networkResponse.clone());
-              return networkResponse;
-            });
-          })
-          .catch((err) => {
-            return caches.open(CURRENT_CACHE["static"]).then((res) => {
-              return res.match("/offline.html");
-            });
-          });
-      })
-    );
-  }
-});
+//         return fetch(event.request)
+//           .then((networkResponse) => {
+//             return caches.open(CURRENT_CACHE["dynamic"]).then((cache) => {
+//               cache.put(event.request, networkResponse.clone());
+//               return networkResponse;
+//             });
+//           })
+//           .catch((err) => {
+//             return caches.open(CURRENT_CACHE["static"]).then((res) => {
+//               return res.match("/offline.html");
+//             });
+//           });
+//       })
+//     );
+//   }
+// });
