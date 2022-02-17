@@ -37,16 +37,24 @@ async function showNotif() {
     alert("شما خدمات مارا رد کردید اصنشم قهرم!!");
   };
 
+  const noSupport = () => {
+    alert("کلا نوتیف پشتیبنی نمیشه");
+  };
+
   // check notification permission
-  let granted = null;
+  let status;
 
   if (Notification.permission === "granted") {
-    granted = true;
+    status = "granted";
   } else if (Notification.permission !== "denied") {
     let permission = await Notification.requestPermission();
-    granted = permission === "granted" ? true : false;
+    status = permission;
   }
 
   // show notification or error
-  granted ? showNotification() : showError();
+  status === "granted"
+    ? showNotification()
+    : status === "denied"
+    ? showError()
+    : noSupport();
 }
