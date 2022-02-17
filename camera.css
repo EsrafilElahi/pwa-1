@@ -38,7 +38,7 @@ button {
 .section {
   border: 1px solid #00d2ff;
   border-radius: 0.25em;
-  padding: 0.7em 3em;
+  padding: 0.7em 2em;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -46,6 +46,11 @@ button {
 .section:hover {
   color: white;
   background-color: #00d2ff;
+}
+
+#download-img {
+  display: none;
+  margin: 0 auto;
 }
 
 #start-record {

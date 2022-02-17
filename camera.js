@@ -82,14 +82,15 @@ section2.onclick = () => {
 };
 
 // picture elements
-const picture_div = document.querySelector("#take-picture");
+let picture_div = document.querySelector("#take-picture");
 let start_camera_photo = document.querySelector("#start-camera-photo");
 let video_photo = document.querySelector("#video-photo");
 let take_Photo = document.querySelector("#take-photo");
 let canvas = document.querySelector("#canvas");
+let download_img = document.querySelector("#download-img");
 
 // video elemetns
-const video_div = document.querySelector("#record-video");
+let video_div = document.querySelector("#record-video");
 let video_button = document.querySelector("#start-camera-video");
 let video_video = document.querySelector("#video-video");
 let start_button = document.querySelector("#start-record");
@@ -103,6 +104,7 @@ let blobs_recorded = [];
 // picture functions
 start_camera_photo.addEventListener("click", async function () {
   take_Photo.style.display = "flex";
+  download_img.style.display = "flex";
   let stream = await navigator.mediaDevices.getUserMedia({
     video: true,
     audio: false,
@@ -119,6 +121,7 @@ take_Photo.addEventListener("click", function () {
 
   // data url of the image
   console.log(image_data_url);
+  download_img.style.src = image_data_url;
 });
 
 // video functions
@@ -131,7 +134,7 @@ video_button.addEventListener("click", async function () {
     video: true,
     audio: true,
   });
-  video.srcObject = camera_stream;
+  video_video.srcObject = camera_stream;
 });
 
 start_button.addEventListener("click", function () {
